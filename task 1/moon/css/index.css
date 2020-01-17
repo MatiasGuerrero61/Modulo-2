@@ -1,0 +1,9 @@
+#test {
+    background: url(../img/moon.jpg);
+    background-size: cover;
+    color: lightgreen;
+    font: bold 14px arial;
+    width: 140px;
+    height: 140px;
+    border: 2px solid #999999;
+  }
