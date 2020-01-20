@@ -1,0 +1,1 @@
+document.getElementById("house-data").innerHTML = JSON.stringify(data,null,2);
