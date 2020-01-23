@@ -11,8 +11,8 @@ senadores.forEach(function(value){
     }
     td += value.last_name+"</a>"+"</td>";
     td+="<td>"+value.party+"</td>";
-    td+="<td>"+value.seniority+"</td>";
     td+="<td>"+value.state+"</td>";
+    td+="<td>"+value.seniority+"</td>";
     td+="<td>"+value.votes_with_party_pct+"%"+"</td>"+"</tr>";
 
 });
