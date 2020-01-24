@@ -19,4 +19,15 @@ senadores.forEach(function(value){
 
 document.getElementById("senate-data").innerHTML += td;
 
+function filtrar(){
+    document.getElementById("senate-data").innerHTML = "";
+    let republican = congress[0].checked;
+    let democrat = congress[1].checked;
+    let independent = congress[2].checked;
+
+    if(republican && democrat && independent){
+        document.getElementById("senate-data").innerHTML = senadores.map();  
+    } 
+}
+
 
