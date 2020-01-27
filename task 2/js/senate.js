@@ -12,13 +12,13 @@ function filtrarPorPartido(){
         if(check[i].checked){
             senadoresFiltrados = senadores.filter(e => e.party == check[i].value)
             document.getElementById("senate-data").innerHTML+= senadores.filter(e => e.party == check[i].value).map((e)=>
-            `<tr> <td> ${e.first_name} ${notNull(e.middle_name)} ${e.last_name} </td>
+            `<tr> <td> <a href="${e.url}">${e.first_name} ${notNull(e.middle_name)} ${e.last_name} </a></td>
             <td> ${e.party} </td>
             <td> ${e.state} </td>
             <td> ${e.seniority} </td>
             <td> ${e.votes_with_party_pct}% </td> </tr>`
             ).join("");
-
+            
             senadoresFiltrados.forEach(function(e){
                 if(select.indexOf(e.state) == (-1)){
                     select.push(e.state)
@@ -33,6 +33,6 @@ document.getElementById("rep").addEventListener("click", filtrarPorPartido)
 document.getElementById("dem").addEventListener("click", filtrarPorPartido)
 document.getElementById("ind").addEventListener("click", filtrarPorPartido)
 
-
+filtrarPorPartido()
 
 
