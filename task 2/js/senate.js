@@ -1,33 +1,24 @@
 let senadores=sdata.results[0].members;
 
-let td ="";
-
-senadores.forEach(function(value){
-    td+="<tr>"+"<td>"+
-    "<a href="+value.url+">"
-    +value.first_name+" ";
-    if(value.middle_name!= null){
-    td += value.middle_name+" ";
-    }
-    td += value.last_name+"</a>"+"</td>";
-    td+="<td>"+value.party+"</td>";
-    td+="<td>"+value.state+"</td>";
-    td+="<td>"+value.seniority+"</td>";
-    td+="<td>"+value.votes_with_party_pct+"%"+"</td>"+"</tr>";
-
-});
-
-document.getElementById("senate-data").innerHTML += td;
+function notNull(valor){if(valor == null){return ""} return valor}
 
 function filtrar(){
     document.getElementById("senate-data").innerHTML = "";
-    let republican = congress[0].checked;
-    let democrat = congress[1].checked;
-    let independent = congress[2].checked;
-
-    if(republican && democrat && independent){
-        document.getElementById("senate-data").innerHTML = senadores.map();  
-    } 
+    let check = document.getElementsByClassName("congress");
+    for(let i=0;check.length; i++){
+        if(check[i].checked){
+            document.getElementById("senate-data").innerHTML+= senadores.filter(e => e.party == check[i].value).map((e)=>
+            `<tr> <td> ${e.first_name} ${notNull(e.middle_name)} ${e.last_name} </td>
+            <td> ${e.party} </td>
+            <td> ${e.state} </td>
+            <td> ${e.seniority} </td>
+            <td> ${e.votes_with_party_pct}% </td> </tr>`
+            ).join("");
+        }
+    }
 }
+document.getElementById("rep").addEventListener("click", filtrar)
+document.getElementById("dem").addEventListener("click", filtrar)
+document.getElementById("ind").addEventListener("click", filtrar)
 
 

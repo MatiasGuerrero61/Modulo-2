@@ -1,7 +1,7 @@
 let congressmen=hdata.results[0].members;
 
-let td ="";
-
+function armarTabla(){
+    let td=""
 congressmen.forEach(function(value){
     td+="<tr>"+"<td>"+
     "<a href="+value.url+">"
@@ -16,5 +16,7 @@ congressmen.forEach(function(value){
     td+="<td>"+value.votes_with_party_pct+"%"+"</td>"+"</tr>";
 
 });
+return td;
+}
 
-document.getElementById("house-data").innerHTML += td;
+document.getElementById("house-data").innerHTML += armarTabla();
