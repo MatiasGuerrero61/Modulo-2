@@ -8,3 +8,16 @@ ul{
   color:black;
   text-decoration-line: none;
 }
+#lupa{
+  background-image: url(../img/lupa.png);
+  background-size: contain;
+  width: auto;
+  height: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#vMas{
+  color: blue;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
