@@ -116,7 +116,7 @@ console.log(valoresRepetidos(numbers));
 
 console.log("-----------Exercise 2.7--------");
 function mostrarValoresArray(array){
-    var info="";
+    let info="";
     for(i=0;i<array.length;i++){
         info+=array[i]+"\n";
     }
@@ -128,7 +128,7 @@ console.log(mostrarValoresArray(myColor));
 
 console.log("-----------Exercise 3.1--------");
 function reverseNumber(numero){
-    numero = numero.toString();
+    var numero = numero.toString();
     return numero.split("").reverse().join("");
 }
 console.log(reverseNumber(34098231));
@@ -143,7 +143,17 @@ console.log("-----------Exercise 3.3--------");
 function mayuscula(string){
     return string.replace(/\b[a-z]/g, l => l.toUpperCase());
 }
+function may(letra){
+    let mayus = letra.split(" ")
+    let mayus2=[]
+    for(let i=0;i<mayus.length;i++){
+       mayus2.push(mayus[i].charAt(0).toUpperCase() + mayus[i].slice(1))
+    }
+    return mayus2.join(" ")
+}
+
 console.log(mayuscula("mamá saca la mano de ahi carajo"));
+console.log(may("mamá saca la mano de ahi carajo"));
 
 console.log("-----------Exercise 3.4--------");
 function longestWord(string){
@@ -154,6 +164,6 @@ function longestWord(string){
          longest = palabra;
      }
     });
-    return longest; 
+    return longest;
 }
 console.log(longestWord("cortaste toda la looz"));
