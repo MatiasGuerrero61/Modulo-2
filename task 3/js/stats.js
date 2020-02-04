@@ -50,3 +50,43 @@ document.getElementById("tbody1").innerHTML += `<tr><td>Independients</td>
 document.getElementById("tbody1").innerHTML += `<tr><td>Total</td>
                                                 <td>${datos.length}</td>
                                                 <td></td></tr> `
+
+
+
+
+
+let datosOrd= datos.sort(function (a, b) {
+    if (a.missed_votes_pct > b.missed_votes_pct) {
+        return 1;
+        }
+    if (a.missed_votes_pct < b.missed_votes_pct) {
+        return -1;
+        }
+    // a must be equal to b
+        return 0;
+});
+function notNull(valor){if(valor == null){return ""} return valor}
+
+let diezPct = (datos.length * 0.10)
+
+let valorFiltro = datosOrd[diezPct].missed_votes_pct
+
+datosOrd.filter(e => e.missed_votes_pct <= valorFiltro).forEach(e =>{
+    stats["bottom_attendance"].push(e)
+})
+
+stats["bottom_attendance"].forEach(e=>{
+    document.getElementById("tbody3").innerHTML += `<tr><td>${e.first_name} ${notNull(e.middle_name)}
+    ${e.last_name}</td> <td> ${e.missed_votes}</td> <td>${e.missed_votes_pct}%`
+})
+
+let valorFiltro2 = datosOrd[datosOrd.length - diezPct].missed_votes_pct
+
+datosOrd.filter(e => e.missed_votes_pct >= valorFiltro2).forEach(e =>{
+    stats["top_attendance"].push(e)
+})
+
+stats["top_attendance"].forEach(e=>{
+    document.getElementById("tbody2").innerHTML += `<tr><td>${e.first_name} ${notNull(e.middle_name)}
+    ${e.last_name}</td> <td> ${e.missed_votes}</td> <td>${e.missed_votes_pct}%`
+})                                                
