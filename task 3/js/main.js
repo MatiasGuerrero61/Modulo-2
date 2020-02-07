@@ -28,18 +28,19 @@ function filtrar(){
                 document.getElementById("select-data").innerHTML = `<option value ="all">All</option>`
                 document.getElementById("select-data").innerHTML += select.map(e => 
                     `<option value="${e}" class="state">${e}</option>`).join("")
-            });
-            
-
+                });
+                
+                
                 document.getElementById("select-data").value = state
-        }
+            }
         }
     }
-document.getElementById("rep").addEventListener("click", filtrar)
-document.getElementById("dem").addEventListener("click", filtrar)
-document.getElementById("ind").addEventListener("click", filtrar)
-document.getElementById("select-data").addEventListener("change", filtrar)
-
-filtrar()
-
-
+    document.getElementById("rep").addEventListener("click", filtrar)
+    document.getElementById("dem").addEventListener("click", filtrar)
+    document.getElementById("ind").addEventListener("click", filtrar)
+    document.getElementById("select-data").addEventListener("change", filtrar)
+    
+    filtrar()
+    
+    
+    

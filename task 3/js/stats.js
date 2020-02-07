@@ -8,6 +8,7 @@ let stats = {
     votes_rep: 0,
     votes_ind: 0,
     votes_total: 0,
+    ten_pct:0,
     top_attendance:[],
     bottom_attendance:[],
     top_loyalty:[],
@@ -52,36 +53,87 @@ document.getElementById("tbody1").innerHTML += `<tr><td>Total</td>
                                                 <td>${datos.length}</td>
                                                 <td></td></tr> `
 
-let datosOrd= datos.sort(function (a, b) {
-    if (a.missed_votes_pct > b.missed_votes_pct) {
-        return 1;
-        }
-    if (a.missed_votes_pct < b.missed_votes_pct) {
-        return -1;
-        }
-    // a must be equal to b
-        return 0;
-});
 function notNull(valor){if(valor == null){return ""} return valor}
 
-let diezPct = Math.round(datos.length * 0.10)
+stats["ten_pct"] = Math.round(datos.length * 0.10)
 
-let valorFiltro = datosOrd[diezPct].missed_votes_pct
+function filtrar(lista, orden, filtro){
+    let limite = 0;
+    let listaOrd=[]
+    let listaFil=[]
+    if(orden == true && filtro == true){
+        listaOrd = lista.sort(function(a,b){
+            if (a.missed_votes_pct > b.missed_votes_pct) {
+                return 1;
+                }
+            if (a.missed_votes_pct < b.missed_votes_pct) {
+                return -1;
+                }
+            // a must be equal to b
+                return 0;
+        })
 
-datosOrd.filter(e => e.missed_votes_pct <= valorFiltro && e.missed_votes_pct != 0).forEach(e =>{
-    stats["bottom_attendance"].push(e)
-})
+        limite = listaOrd[stats["ten_pct"]].missed_votes_pct
+
+        listaFil = listaOrd.filter(e => e.missed_votes_pct <= limite)
+    }
+    if(orden == false && filtro == true){
+        listaOrd = lista.sort(function(a,b){
+            if (a.missed_votes_pct < b.missed_votes_pct) {
+                return 1;
+                }
+            if (a.missed_votes_pct > b.missed_votes_pct) {
+                return -1;
+                }
+            // a must be equal to b
+                return 0;
+        })
+        limite = listaOrd[stats["ten_pct"]].missed_votes_pct
+
+        listaFil = listaOrd.filter(e => e.missed_votes_pct >= limite)
+    }
+    if(orden == true && filtro == false){
+        listaOrd = lista.sort(function(a,b){
+            if (a.votes_with_party_pct > b.votes_with_party_pct) {
+                return 1;
+                }
+            if (a.votes_with_party_pct < b.votes_with_party_pct) {
+                return -1;
+                }
+            // a must be equal to b
+                return 0;
+        })
+        limite = listaOrd[stats["ten_pct"]].votes_with_party_pct
+
+        listaFil = listaOrd.filter(e => e.votes_with_party_pct <= limite && e.votes_with_party_pct != 0)
+    }
+    if(orden == false && filtro == false){
+        listaOrd = lista.sort(function(a,b){
+            if (a.votes_with_party_pct < b.votes_with_party_pct) {
+                return 1;
+                }
+            if (a.votes_with_party_pct > b.votes_with_party_pct) {
+                return -1;
+                }
+            // a must be equal to b
+                return 0;
+        })
+        limite = listaOrd[stats["ten_pct"]].votes_with_party_pct
+
+        listaFil = listaOrd.filter(e => e.votes_with_party_pct >= limite) 
+    }
+    return listaFil
+}
+
+stats["bottom_attendance"] = filtrar(datos, true, true)
+stats["top_attendance"] = filtrar(datos, false, true)
+stats["bottom_loyalty"] = filtrar(datos, true, false)
+stats["top_loyalty"] = filtrar(datos, false, false)
 
 stats["bottom_attendance"].forEach(e=>{
     if(document.getElementById("tbody3")){
     document.getElementById("tbody3").innerHTML += `<tr><td><a href="${e.url}">${e.first_name} ${notNull(e.middle_name)}
     ${e.last_name}</td> <td> ${e.missed_votes}</a></td> <td>${e.missed_votes_pct}%`}
-})
-
-let valorFiltro2 = datosOrd[datosOrd.length - diezPct].missed_votes_pct
-
-datosOrd.filter(e => e.missed_votes_pct >= valorFiltro2).forEach(e =>{
-    stats["top_attendance"].push(e)
 })
 
 stats["top_attendance"].forEach(e=>{
@@ -90,32 +142,10 @@ stats["top_attendance"].forEach(e=>{
     ${e.last_name}</a></td> <td> ${e.missed_votes}</td> <td>${e.missed_votes_pct}%`}
 })
 
-let datosOrd2= datos.sort(function (a, b) {
-    if (a.votes_with_party_pct > b.votes_with_party_pct) {
-        return 1;
-        }
-    if (a.votes_with_party_pct < b.votes_with_party_pct) {
-        return -1;
-        }
-    // a must be equal to b
-        return 0;
-});
-let valorFiltro3 = datosOrd[diezPct].votes_with_party_pct
-
-datosOrd2.filter(e=> e.votes_with_party_pct <= valorFiltro3 && e.votes_with_party_pct != 0).forEach(e=>{
-    stats["bottom_loyalty"].push(e)
-})
-
 stats["bottom_loyalty"].forEach(e=>{
     if(document.getElementById("tbody4")){
     document.getElementById("tbody4").innerHTML+=`<tr><td><a href="${e.url}">${e.first_name} ${notNull(e.middle_name)}
     ${e.last_name}</a></td> <td> ${Math.round((e.total_votes * e.votes_with_party_pct)/100)}</td> <td>${e.votes_with_party_pct}%`}
-})
-
-let valorFiltro4 = datosOrd2[datosOrd2.length - diezPct].votes_with_party_pct
-
-datosOrd2.filter(e=> e.votes_with_party_pct >= valorFiltro4).forEach(e=>{
-    stats["top_loyalty"].push(e)
 })
 
 stats["top_loyalty"].forEach(e=>{
