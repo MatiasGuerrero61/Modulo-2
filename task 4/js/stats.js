@@ -1,3 +1,4 @@
+function start(){
 const datos = data.results[0].members
 let stats = {
     nro_dem: 0,
@@ -153,3 +154,4 @@ stats["top_loyalty"].forEach(e=>{
     document.getElementById("tbody5").innerHTML+=`<tr><td><a href="${e.url}">${e.first_name} ${notNull(e.middle_name)}
     ${e.last_name}</a></td> <td> ${Math.round((e.total_votes * e.votes_with_party_pct)/100)}</td> <td>${e.votes_with_party_pct}%`}
 })
+}
